@@ -5,7 +5,7 @@
 #include <unordered_set>
 const std::string TEST_FOLDER = "\\tests\\";
 unsigned int xorShift(unsigned int seed, int r1, int r2);
-
+//create struct for state and its operator
 struct State {
   unsigned int x, y;
 
@@ -13,7 +13,7 @@ struct State {
     return x == other.x && y == other.y;
   }
 };
-
+// set up template and struct for the hash  and operator
 namespace std {
 template<>
   struct hash<State> {
@@ -23,45 +23,50 @@ template<>
 
 int main(){
   // code here
-
+//variables for phases
   int cycles = 0;
   int warmupPhase = 0;
   int numOfStates = 0;
 
+  //create unordered_set and a state
   std::unordered_set<State> states;
 State state = {0,0};
 
-
+//create variables and get input for them
   unsigned int seed, N, min, max;
   std::cin >> seed >> N >> min >> max;
-
+//create a variable for loop iterations
   unsigned int i;
-unsigned int newSeed;
+//assign seed value to state.x
   state.x = seed;
 
 
   for(i = N; i >= 1; i--)
   {
-    //Run xor shift
+    //Run xor shift using state.x as seed and store in state.y
     state.y = xorShift(state.x, min, max);
 
 
 
-
+    //check if state is already in set if not add to warmup counter
     if (!states.contains(state)) {
       warmupPhase++;
       
     }
 
-    states.insert({state});
 
-
+   //check number of times a state appears in the set
      numOfStates = states.count(state);
+    //if we do have a repeating value add to the cycles variable to see how long the cycle lasts
     if (numOfStates == 2) {
       cycles++;
     }
+    // add the state into the set
+    states.insert({state});
+    //set state.x to the value of state.y to be used as the new seed for xorshift
     state.x = state.y;
   }
+  //remove the cycle length for the warmups to see how long the warmup is
   warmupPhase -= cycles;
   std::cout << "the warmup period is: " << warmupPhase << std::endl;
   std::cout << "the cycle period is: " << cycles << std::endl;
