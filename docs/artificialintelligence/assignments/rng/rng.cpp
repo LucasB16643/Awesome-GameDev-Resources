@@ -34,6 +34,7 @@ State state = {0,0};
 
   unsigned int seed, N, min, max;
   std::cin >> seed >> N >> min >> max;
+<<<<<<< HEAD
   unsigned int i;
 unsigned int newSeed;
   state.x = seed;
@@ -63,15 +64,11 @@ unsigned int newSeed;
   warmupPhase -= cycles;
   std::cout << "the warmup period is: " << warmupPhase << std::endl;
   std::cout << "the cycle period is: " << cycles << std::endl;
+=======
+>>>>>>> 3ccdd7fb75e9f5129e6871727732970b5bd5e12e
 }
 //The purpose of this function is to take the number and xor shift it to output a pseudo-random number
     unsigned int xorShift(unsigned int seed, int r1, int r2)
 {
-  seed = seed xor (seed << 13);
-  seed = seed xor (seed >> 17);
-  seed = seed xor (seed << 5);
-  int value = r1 + (seed % (r2 - r1 + 1)); //clamps the value to between r1 and r2
-          //output the new values
-          std::cout << value << std::endl;
-  return seed;
+
 }
